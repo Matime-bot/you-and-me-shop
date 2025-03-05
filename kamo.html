@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Information</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #fafafa;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .billing-form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .billing-form input, .billing-form select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 2px solid #ddd;
+        }
+        .billing-form label {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #333;
+            display: block;
+        }
+        .payment-method {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .payment-method input {
+            margin-right: 10px;
+        }
+        .payment-method label {
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 30px;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .home-icon {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 15px;
+    font-size: 24px;
+    border-radius: 50%;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.home-icon:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+
+    </style>
+    <a href="Untitled.html" class="home-icon">🏠</a>
+
+</head>
+<body>
+    <h2>Billing Information</h2>
+    <div class="billing-form">
+        <form id="billingFormDetails">
+            <label for="name">Name</label>
+            <input type="text" id="name" required placeholder="Your full name">
+
+            <label for="address">Address</label>
+            <input type="text" id="address" required placeholder="Street, City, Zip">
+
+            <label for="cardNumber">Card Number</label>
+            <input type="text" id="cardNumber" required placeholder="Your card number" pattern="\d{16}">
+
+            <label for="expiryDate">Expiry Date</label>
+            <input type="month" id="expiryDate" required>
+
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" required placeholder="CVV" pattern="\d{3}">
+
+            <div class="payment-method">
+                <div>
+                    <input type="radio" id="cardPayment" name="paymentMethod" value="card" checked>
+                    <label for="cardPayment">Credit/Debit Card</label>
+                </div>
+                <div>
+                    <input type="radio" id="eftPayment" name="paymentMethod" value="eft">
+                    <label for="eftPayment">EFT</label>
+                </div>
+            </div>
+
+            <button type="submit" onclick="processCheckout(event)">Submit Payment</button>
+        </form>
+    </div>
+
+    <script>
+        function processCheckout(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+            if (!name || !address || !cardNumber || !expiryDate || !cvv) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            let paymentMessage = `Your payment has been processed successfully via ${paymentMethod === 'card' ? 'Credit/Debit Card' : 'EFT'}.`;
+            alert(paymentMessage);
+
+            // Redirect to home page after successful checkout
+            window.location.href = "Untitled.html";
+        }
+    </script>
+</body>
+</html>
